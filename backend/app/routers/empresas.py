@@ -24,7 +24,6 @@ def minha_empresa(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
-
     token = credentials.credentials
 
     payload = decode_token(token)
@@ -45,7 +44,9 @@ def minha_empresa(
 
     empresa = (
         db.query(Empresa)
-        .filter(Empresa.id == empresa_id)
+        .filter(
+            Empresa.id == empresa_id
+        )
         .first()
     )
 
