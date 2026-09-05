@@ -46,6 +46,10 @@ class EmpresaResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+# =========================
+# PRODUTOS
+# =========================
+
 class ProdutoCreate(BaseModel):
     nome: str
     descricao: Optional[str] = None
@@ -79,6 +83,11 @@ class ProdutoResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
+
+# =========================
+# CLIENTES
+# =========================
+
 class ClienteCreate(BaseModel):
     nome: str
     telefone: Optional[str] = None
@@ -109,5 +118,48 @@ class ClienteResponse(BaseModel):
     ativo: bool
     empresa_id: int
     created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# =========================
+# PEDIDOS
+# =========================
+
+class ItemPedidoCreate(BaseModel):
+    produto_id: int
+    quantidade: int
+
+
+class ItemPedidoResponse(BaseModel):
+    id: int
+    produto_id: int
+    quantidade: int
+    preco_unitario: float
+    subtotal: float
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class PedidoCreate(BaseModel):
+    cliente_id: int
+    itens: list[ItemPedidoCreate]
+
+
+class PedidoStatusUpdate(BaseModel):
+    status: str
+
+
+class PedidoResponse(BaseModel):
+    id: int
+    cliente_id: int
+    empresa_id: int
+    status: str
+    total: float
+    estoque_baixado: bool
+    created_at: datetime
+    updated_at: Optional[datetime]
+
+    itens: list[ItemPedidoResponse]
 
     model_config = ConfigDict(from_attributes=True)

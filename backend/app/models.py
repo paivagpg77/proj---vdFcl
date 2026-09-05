@@ -25,10 +25,7 @@ class Empresa(Base):
     telefone = Column(String(20), nullable=True)
     email = Column(String(150), nullable=True)
 
-    created_at = Column(
-        DateTime,
-        default=datetime.utcnow
-    )
+    created_at = Column(DateTime, default=datetime.utcnow)
 
     usuarios = relationship(
         "Usuario",
@@ -38,6 +35,18 @@ class Empresa(Base):
 
     produtos = relationship(
         "Produto",
+        back_populates="empresa",
+        cascade="all, delete-orphan"
+    )
+
+    clientes = relationship(
+        "Cliente",
+        back_populates="empresa",
+        cascade="all, delete-orphan"
+    )
+
+    pedidos = relationship(
+        "Pedido",
         back_populates="empresa",
         cascade="all, delete-orphan"
     )
@@ -59,10 +68,7 @@ class Usuario(Base):
 
     senha_hash = Column(String(255), nullable=False)
 
-    ativo = Column(
-        Boolean,
-        default=True
-    )
+    ativo = Column(Boolean, default=True)
 
     empresa_id = Column(
         Integer,
@@ -70,10 +76,7 @@ class Usuario(Base):
         nullable=False
     )
 
-    created_at = Column(
-        DateTime,
-        default=datetime.utcnow
-    )
+    created_at = Column(DateTime, default=datetime.utcnow)
 
     empresa = relationship(
         "Empresa",
@@ -84,21 +87,11 @@ class Usuario(Base):
 class Produto(Base):
     __tablename__ = "produtos"
 
-    id = Column(
-        Integer,
-        primary_key=True,
-        index=True
-    )
+    id = Column(Integer, primary_key=True, index=True)
 
-    nome = Column(
-        String(150),
-        nullable=False
-    )
+    nome = Column(String(150), nullable=False)
 
-    descricao = Column(
-        Text,
-        nullable=True
-    )
+    descricao = Column(Text, nullable=True)
 
     preco = Column(
         Float,
@@ -144,49 +137,25 @@ class Produto(Base):
         back_populates="produtos"
     )
 
+
 class Cliente(Base):
     __tablename__ = "clientes"
 
-    id = Column(
-        Integer,
-        primary_key=True,
-        index=True
-    )
+    id = Column(Integer, primary_key=True, index=True)
 
-    nome = Column(
-        String(150),
-        nullable=False
-    )
+    nome = Column(String(150), nullable=False)
 
-    telefone = Column(
-        String(20),
-        nullable=True
-    )
+    telefone = Column(String(20), nullable=True)
 
-    email = Column(
-        String(150),
-        nullable=True
-    )
+    email = Column(String(150), nullable=True)
 
-    cpf = Column(
-        String(14),
-        nullable=True
-    )
+    cpf = Column(String(14), nullable=True)
 
-    endereco = Column(
-        String(255),
-        nullable=True
-    )
+    endereco = Column(String(255), nullable=True)
 
-    observacoes = Column(
-        Text,
-        nullable=True
-    )
+    observacoes = Column(Text, nullable=True)
 
-    ativo = Column(
-        Boolean,
-        default=True
-    )
+    ativo = Column(Boolean, default=True)
 
     empresa_id = Column(
         Integer,
@@ -202,4 +171,116 @@ class Cliente(Base):
     empresa = relationship(
         "Empresa",
         back_populates="clientes"
+    )
+
+
+class Pedido(Base):
+    __tablename__ = "pedidos"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+
+    cliente_id = Column(
+        Integer,
+        ForeignKey("clientes.id"),
+        nullable=False
+    )
+
+    empresa_id = Column(
+        Integer,
+        ForeignKey("empresas.id"),
+        nullable=False
+    )
+
+    status = Column(
+        String(30),
+        nullable=False,
+        default="Pendente"
+    )
+
+    total = Column(
+        Float,
+        nullable=False,
+        default=0
+    )
+
+    estoque_baixado = Column(
+        Boolean,
+        nullable=False,
+        default=False
+    )
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow
+    )
+
+    updated_at = Column(
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow
+    )
+
+    empresa = relationship(
+        "Empresa",
+        back_populates="pedidos"
+    )
+
+    cliente = relationship(
+        "Cliente"
+    )
+
+    itens = relationship(
+        "ItemPedido",
+        back_populates="pedido",
+        cascade="all, delete-orphan"
+    )
+
+
+class ItemPedido(Base):
+    __tablename__ = "itens_pedido"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+
+    pedido_id = Column(
+        Integer,
+        ForeignKey("pedidos.id"),
+        nullable=False
+    )
+
+    produto_id = Column(
+        Integer,
+        ForeignKey("produtos.id"),
+        nullable=False
+    )
+
+    quantidade = Column(
+        Integer,
+        nullable=False
+    )
+
+    preco_unitario = Column(
+        Float,
+        nullable=False
+    )
+
+    subtotal = Column(
+        Float,
+        nullable=False
+    )
+
+    pedido = relationship(
+        "Pedido",
+        back_populates="itens"
+    )
+
+    produto = relationship(
+        "Produto"
     )
