@@ -9,18 +9,11 @@ from .routers import empresas
 from .routers import produtos
 from .routers import clientes
 from .routers import pedidos
+from .routers import n8n
 
-
-# ==========================================
-# CRIAÇÃO DAS TABELAS
-# ==========================================
 
 Base.metadata.create_all(bind=engine)
 
-
-# ==========================================
-# APLICAÇÃO
-# ==========================================
 
 app = FastAPI(
     title="VendeFácil API",
@@ -28,10 +21,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-
-# ==========================================
-# CORS
-# ==========================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -45,24 +34,13 @@ app.add_middleware(
 )
 
 
-# ==========================================
-# ROTAS DA API
-# ==========================================
-
 app.include_router(auth.router)
-
 app.include_router(empresas.router)
-
 app.include_router(produtos.router)
-
 app.include_router(clientes.router)
-
 app.include_router(pedidos.router)
+app.include_router(n8n.router)
 
-
-# ==========================================
-# ROTA PRINCIPAL
-# ==========================================
 
 @app.get("/")
 def root():
@@ -71,10 +49,6 @@ def root():
         "version": "1.0.0"
     }
 
-
-# ==========================================
-# HEALTH CHECK
-# ==========================================
 
 @app.get("/health")
 def health():
