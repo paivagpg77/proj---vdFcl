@@ -7,19 +7,59 @@
 
 .page-header h1 {
     font-size: 28px;
+    color: var(--text);
+}
+
+.page-header p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 4px;
 }
 
 .clientes-card {
     background: white;
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.clientes-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--secondary);
 }
 
 .cliente-actions {
     display: flex;
     gap: 8px;
 }
+
+/* ── Status badge ───────────────────────── */
+
+.status-ativo {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.status-inativo {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+/* ── Modal ──────────────────────────────── */
 
 .modal {
     position: fixed;
@@ -29,24 +69,55 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 .modal-content {
     background: white;
     width: 100%;
     max-width: 550px;
-    padding: 25px;
-    border-radius: 14px;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--secondary);
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
 }
 
 .close-modal {
     border: none;
     background: none;
     font-size: 24px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.15s;
+    padding: 4px;
+}
+
+.close-modal:hover {
+    color: var(--danger);
 }

@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>VendeFácil — Gestão simplificada</title>
-
     <link rel="stylesheet" href="css/style.css">
 
     <style>
@@ -17,47 +15,108 @@
             justify-content: center;
             text-align: center;
             padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Fundo com gradiente sutil */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(31, 82, 51, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(243, 156, 18, 0.05) 0%, transparent 60%);
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 720px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(31, 82, 51, 0.08);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
         }
 
         .hero h1 {
-            font-size: 60px;
+            font-size: 56px;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
 
         .hero h2 {
-            font-size: 32px;
+            font-size: 28px;
+            font-weight: 600;
             margin-bottom: 20px;
+            color: var(--text);
         }
 
         .hero p {
             color: var(--muted);
             font-size: 18px;
             line-height: 1.7;
-            margin-bottom: 30px;
+            margin-bottom: 36px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-buttons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 14px;
+        }
+
+        .hero-buttons .btn {
+            padding: 14px 28px;
+            font-size: 16px;
+        }
+
+        .hero-buttons .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(31, 82, 51, 0.25);
+        }
+
+        /* Detalhe visual ouro */
+        .hero-accent {
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+            margin: 0 auto 24px;
         }
 
         @media (max-width: 600px) {
             .hero h1 {
-                font-size: 42px;
+                font-size: 38px;
             }
 
             .hero h2 {
-                font-size: 25px;
+                font-size: 22px;
+            }
+
+            .hero p {
+                font-size: 16px;
             }
 
             .hero-buttons {
                 flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 280px;
             }
         }
     </style>
@@ -69,7 +128,13 @@
 
         <div class="hero-content">
 
+            <span class="hero-badge">
+                ✦ Gestão simplificada
+            </span>
+
             <h1>VendeFácil</h1>
+
+            <div class="hero-accent"></div>
 
             <h2>
                 Gestão simples para o seu negócio.
@@ -77,22 +142,17 @@
 
             <p>
                 Gerencie clientes, produtos, estoque e pedidos
-                em um único lugar.
+                em um único lugar. Tudo que você precisa para
+                crescer com confiança.
             </p>
 
             <div class="hero-buttons">
 
-                <a
-                    href="login.html"
-                    class="btn btn-secondary"
-                >
+                <a href="login.html" class="btn btn-secondary">
                     Entrar
                 </a>
 
-                <a
-                    href="cadastro.html"
-                    class="btn btn-primary"
-                >
+                <a href="cadastro.html" class="btn btn-primary">
                     Começar agora
                 </a>
 

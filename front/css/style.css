@@ -1,3 +1,8 @@
+/* ============================================
+   VendeFácil — Design System v1.0
+   Identidade: Verde Floresta + Ouro Quente
+   ============================================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -5,23 +10,50 @@
 }
 
 :root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --background: #f8fafc;
+    /* Primárias */
+    --primary: #1F5233;
+    --primary-dark: #164025;
+    --primary-light: #2d7a47;
+
+    /* Secundárias */
+    --secondary: #F39C12;
+    --secondary-dark: #D97E0A;
+
+    /* Status */
+    --success: #27AE60;
+    --success-light: #D5F4E6;
+    --danger: #E74C3C;
+    --danger-light: #FADBD8;
+    --warning: #F59E0B;
+    --warning-light: #FEF3C7;
+    --info: #3498DB;
+    --info-light: #D6EAF8;
+
+    /* Neutras */
+    --text: #1A1A1A;
+    --muted: #8B95A5;
+    --background: #F5F7FA;
     --surface: #ffffff;
-    --border: #e2e8f0;
-    --text: #0f172a;
-    --muted: #64748b;
-    --success: #16a34a;
-    --warning: #f59e0b;
-    --danger: #dc2626;
+    --border: #D5DCE3;
+    --border-light: #E2E8F0;
+
+    /* Radius */
     --radius: 12px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+
+    /* Sombras */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--background);
     color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -45,21 +77,53 @@ a {
     margin: 0 auto;
 }
 
+/* ── Botões ─────────────────────────────── */
+
 .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     border: none;
-    border-radius: 8px;
-    padding: 11px 18px;
+    border-radius: var(--radius-md);
+    padding: 11px 20px;
     font-weight: 600;
-    transition: 0.2s;
+    font-size: 15px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
 }
 
 .btn-primary {
     background: var(--primary);
     color: white;
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
     background: var(--primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--border-light);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: #cbd5e1;
+}
+
+.btn-accent {
+    background: var(--secondary);
+    color: white;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-accent:hover {
+    background: var(--secondary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
 }
 
 .btn-danger {
@@ -67,22 +131,35 @@ a {
     color: white;
 }
 
+.btn-danger:hover {
+    background: #c0392b;
+}
+
 .btn-success {
     background: var(--success);
     color: white;
 }
 
-.btn-secondary {
-    background: #e2e8f0;
-    color: var(--text);
+.btn-success:hover {
+    background: #1e8449;
 }
+
+.btn-sm {
+    padding: 7px 12px;
+    font-size: 13px;
+}
+
+/* ── Cards ──────────────────────────────── */
 
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 20px;
+    box-shadow: var(--shadow-sm);
 }
+
+/* ── Formulários ────────────────────────── */
 
 .form-group {
     margin-bottom: 16px;
@@ -92,26 +169,42 @@ a {
     display: block;
     margin-bottom: 7px;
     font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 12px;
+    padding: 11px 14px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     outline: none;
+    font-size: 15px;
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #a0aec0;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(31, 82, 51, 0.1);
 }
+
+/* ── Tabelas ────────────────────────────── */
 
 .table-container {
     overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 }
 
 table {
@@ -121,29 +214,60 @@ table {
 
 th,
 td {
-    padding: 13px;
-    border-bottom: 1px solid var(--border);
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border-light);
     text-align: left;
 }
 
 th {
     background: #f1f5f9;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ── Mensagens ──────────────────────────── */
+
 .message {
-    padding: 12px;
-    border-radius: 8px;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
     margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .message.error {
-    background: #fee2e2;
+    background: var(--danger-light);
     color: #991b1b;
+    border-left: 4px solid var(--danger);
 }
 
 .message.success {
-    background: #dcfce7;
+    background: var(--success-light);
     color: #166534;
+    border-left: 4px solid var(--success);
+}
+
+.message.warning {
+    background: var(--warning-light);
+    color: #92400e;
+    border-left: 4px solid var(--warning);
 }
 
 .hidden {

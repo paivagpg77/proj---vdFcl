@@ -5,28 +5,50 @@
     margin-bottom: 25px;
 }
 
+.pedidos-header h1 {
+    font-size: 28px;
+    color: var(--text);
+}
+
+.pedidos-header p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
 .pedidos-card {
     background: white;
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
 }
+
+.pedidos-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--secondary);
+}
+
+/* ── Status badges ──────────────────────── */
 
 .status {
     display: inline-block;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
     font-weight: 600;
 }
 
 .status-pendente {
-    background: #fef3c7;
+    background: var(--warning-light);
     color: #92400e;
 }
 
 .status-confirmado {
-    background: #dbeafe;
+    background: var(--info-light);
     color: #1e40af;
 }
 
@@ -41,14 +63,16 @@
 }
 
 .status-concluido {
-    background: #dcfce7;
+    background: var(--success-light);
     color: #166534;
 }
 
 .status-cancelado {
-    background: #fee2e2;
+    background: var(--danger-light);
     color: #991b1b;
 }
+
+/* ── Ações e itens ──────────────────────── */
 
 .pedido-actions {
     display: flex;
@@ -62,8 +86,13 @@
 .item-pedido {
     display: flex;
     justify-content: space-between;
-    padding: 12px;
-    border-bottom: 1px solid var(--border);
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.item-pedido:last-child {
+    border-bottom: none;
 }
 
 .total-pedido {
@@ -71,4 +100,7 @@
     font-size: 20px;
     font-weight: 700;
     margin-top: 15px;
+    color: var(--primary);
+    padding-top: 12px;
+    border-top: 2px solid var(--secondary);
 }

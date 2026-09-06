@@ -2,19 +2,11 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard — VendeFácil</title>
-
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
-
 </head>
 
 <body>
@@ -23,243 +15,99 @@
 
         <aside class="sidebar">
 
-            <div class="sidebar-logo">
-                VendeFácil
-            </div>
+            <div class="sidebar-logo">VendeFácil</div>
 
             <nav class="sidebar-menu">
-
-                <a
-                    href="dashboard.html"
-                    class="active"
-                >
-                    📊 Dashboard
-                </a>
-
-                <a href="clientes.html">
-                    👥 Clientes
-                </a>
-
-                <a href="produtos.html">
-                    📦 Produtos
-                </a>
-
-                <a href="pedidos.html">
-                    🛒 Pedidos
-                </a>
-
-                <a
-                    href="#"
-                    onclick="logout()"
-                >
-                    🚪 Sair
-                </a>
-
+                <a href="dashboard.html" class="active">📊 Dashboard</a>
+                <a href="clientes.html">👥 Clientes</a>
+                <a href="produtos.html">📦 Produtos</a>
+                <a href="pedidos.html">🛒 Pedidos</a>
+                <a href="#" onclick="logout()">🚪 Sair</a>
             </nav>
 
         </aside>
 
-
         <main class="main-content">
 
             <header class="topbar">
-
                 <div>
-
                     <h1>Dashboard</h1>
-
-                    <p>
-                        Visão geral do seu negócio
-                    </p>
-
+                    <p>Visão geral do seu negócio</p>
                 </div>
-
                 <div class="user-area">
-
-                    <button
-                        class="btn btn-secondary"
-                        onclick="logout()"
-                    >
+                    <button class="btn btn-secondary" onclick="logout()">
                         Sair
                     </button>
-
                 </div>
-
             </header>
 
-
-            <div
-                id="dashboardMessage"
-                class="message hidden"
-            ></div>
-
+            <div id="dashboardMessage" class="message hidden"></div>
 
             <section class="stats-grid">
 
                 <div class="stat-card">
-
-                    <span>
-                        Vendas hoje
-                    </span>
-
-                    <h2 id="vendasHoje">
-                        R$ 0,00
-                    </h2>
-
+                    <span>Vendas hoje</span>
+                    <h2 id="vendasHoje">R$ 0,00</h2>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span>
-                        Vendas no mês
-                    </span>
-
-                    <h2 id="vendasMes">
-                        R$ 0,00
-                    </h2>
-
+                    <span>Vendas no mês</span>
+                    <h2 id="vendasMes">R$ 0,00</h2>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span>
-                        Total de pedidos
-                    </span>
-
-                    <h2 id="totalPedidos">
-                        0
-                    </h2>
-
+                    <span>Total de pedidos</span>
+                    <h2 id="totalPedidos">0</h2>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span>
-                        Clientes
-                    </span>
-
-                    <h2 id="clientesTotal">
-                        0
-                    </h2>
-
+                    <span>Clientes</span>
+                    <h2 id="clientesTotal">0</h2>
                 </div>
 
             </section>
-
 
             <section class="stats-grid">
 
                 <div class="stat-card">
-
-                    <span>
-                        Produtos
-                    </span>
-
-                    <h2 id="produtosTotal">
-                        0
-                    </h2>
-
+                    <span>Produtos</span>
+                    <h2 id="produtosTotal">0</h2>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span>
-                        Estoque baixo
-                    </span>
-
-                    <h2 id="estoqueBaixo">
-                        0
-                    </h2>
-
+                    <span>Estoque baixo</span>
+                    <h2 id="estoqueBaixo">0</h2>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span>
-                        Pedidos pendentes
-                    </span>
-
-                    <h2 id="pedidosPendentes">
-                        0
-                    </h2>
-
+                    <span>Pedidos pendentes</span>
+                    <h2 id="pedidosPendentes">0</h2>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span>
-                        Pedidos concluídos
-                    </span>
-
-                    <h2 id="pedidosConcluidos">
-                        0
-                    </h2>
-
+                    <span>Pedidos concluídos</span>
+                    <h2 id="pedidosConcluidos">0</h2>
                 </div>
 
             </section>
-
 
             <section class="dashboard-grid">
 
                 <div class="card">
-
-                    <h3>
-                        Resumo
-                    </h3>
-
-                    <p style="margin-top: 10px; color: #64748b;">
+                    <h3>Resumo</h3>
+                    <p style="margin-top: 12px; color: var(--muted); line-height: 1.6;">
                         Acompanhe os principais indicadores
                         do seu negócio através deste painel.
                     </p>
-
                 </div>
 
-
                 <div class="card">
-
-                    <h3>
-                        Ações rápidas
-                    </h3>
-
-                    <div
-                        style="
-                            display:flex;
-                            flex-direction:column;
-                            gap:10px;
-                            margin-top:15px;
-                        "
-                    >
-
-                        <a
-                            href="clientes.html"
-                            class="btn btn-secondary"
-                        >
-                            Novo cliente
-                        </a>
-
-                        <a
-                            href="produtos.html"
-                            class="btn btn-secondary"
-                        >
-                            Novo produto
-                        </a>
-
-                        <a
-                            href="pedidos.html"
-                            class="btn btn-primary"
-                        >
-                            Novo pedido
-                        </a>
-
+                    <h3>Ações rápidas</h3>
+                    <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
+                        <a href="clientes.html" class="btn btn-secondary">Novo cliente</a>
+                        <a href="produtos.html" class="btn btn-secondary">Novo produto</a>
+                        <a href="pedidos.html" class="btn btn-primary">Novo pedido</a>
                     </div>
-
                 </div>
 
             </section>

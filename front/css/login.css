@@ -5,21 +5,50 @@
     justify-content: center;
     padding: 20px;
     background: var(--background);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoração sutil no fundo */
+.login-page::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.04;
+    top: -120px;
+    right: -120px;
+}
+
+.login-page::after {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: var(--secondary);
+    border-radius: 50%;
+    opacity: 0.05;
+    bottom: -80px;
+    left: -80px;
 }
 
 .login-container {
     width: 100%;
     max-width: 430px;
+    position: relative;
+    z-index: 1;
 }
 
 .login-logo {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .login-logo h1 {
     color: var(--primary);
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
     margin-bottom: 6px;
 }
@@ -33,29 +62,31 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    padding: 35px 30px;
+    box-shadow: var(--shadow-md);
 }
 
 .login-card h2 {
     font-size: 24px;
     margin-bottom: 8px;
+    color: var(--text);
 }
 
 .login-card .subtitle {
     color: var(--muted);
-    margin-bottom: 25px;
+    margin-bottom: 28px;
     line-height: 1.5;
+    font-size: 14px;
 }
 
-.login-card button {
+.login-card button[type="submit"] {
     width: 100%;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 .login-footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 24px;
     color: var(--muted);
     font-size: 14px;
 }
@@ -70,17 +101,16 @@
 }
 
 @media (max-width: 500px) {
-
     .login-page {
         padding: 15px;
     }
 
     .login-card {
-        padding: 22px;
+        padding: 25px 20px;
     }
 
     .login-logo h1 {
-        font-size: 28px;
+        font-size: 30px;
     }
 
     .login-card h2 {

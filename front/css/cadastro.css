@@ -4,11 +4,39 @@
     justify-content: center;
     align-items: center;
     padding: 30px 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cadastro-page::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.03;
+    top: -200px;
+    left: -200px;
+}
+
+.cadastro-page::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--secondary);
+    border-radius: 50%;
+    opacity: 0.04;
+    bottom: -100px;
+    right: -100px;
 }
 
 .cadastro-container {
     width: 100%;
     max-width: 650px;
+    position: relative;
+    z-index: 1;
 }
 
 .cadastro-header {
@@ -18,44 +46,54 @@
 
 .cadastro-header h1 {
     color: var(--primary);
+    font-size: 36px;
+    font-weight: 700;
     margin-bottom: 8px;
 }
 
 .cadastro-header p {
     color: var(--muted);
+    font-size: 15px;
 }
 
 .cadastro-card {
     background: white;
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    padding: 35px 30px;
+    box-shadow: var(--shadow-md);
 }
 
 .section-title {
-    font-size: 18px;
-    margin: 25px 0 15px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 28px 0 16px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--secondary);
+    color: var(--primary);
 }
 
 .section-title:first-child {
     margin-top: 0;
 }
 
-.cadastro-card button {
+.cadastro-card button[type="submit"] {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .cadastro-footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 24px;
     color: var(--muted);
+    font-size: 14px;
 }
 
 .cadastro-footer a {
     color: var(--primary);
     font-weight: 600;
 }
+
+.cadastro-footer a:hover {
+    color: var(--primary-dark);
+}   
