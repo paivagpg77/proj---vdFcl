@@ -1,61 +1,175 @@
 # 🛒 VendeFácil
 
-Sistema de gestão e automação para pequenos negócios, desenvolvido com o objetivo de centralizar **clientes, produtos, estoque, pedidos e informações de vendas** em uma única plataforma.
+Sistema de gestão para pequenos negócios, desenvolvido para centralizar clientes, produtos, estoque e pedidos em uma única plataforma.
 
-O VendeFácil possui uma API REST desenvolvida em **Python + FastAPI**, utilizando **PostgreSQL** como banco de dados e autenticação baseada em **JWT**.
+O projeto busca simplificar tarefas do dia a dia de pequenos comerciantes, oferecendo uma interface web conectada a uma API e a um banco de dados PostgreSQL.
 
 ---
 
-## 📌 Sobre o projeto
+## 🎯 Objetivo
 
-O VendeFácil foi criado para facilitar o gerenciamento de pequenos negócios que precisam controlar suas operações de forma simples e organizada.
+O VendeFácil tem como objetivo facilitar o controle operacional de pequenos negócios.
 
 A plataforma permite:
 
-* 👥 Gerenciar clientes
-* 📦 Gerenciar produtos
-* 📊 Controlar estoque
-* 🛒 Criar e gerenciar pedidos
-* 💰 Calcular automaticamente o valor dos pedidos
-* ⚠️ Identificar produtos com estoque baixo
-* 🔐 Realizar cadastro e login de usuários
-* 🏢 Separar os dados de cada empresa
-* 📈 Consultar informações para o dashboard
+* Gerenciar clientes
+* Cadastrar produtos
+* Controlar estoque
+* Registrar pedidos
+* Acompanhar vendas
+* Visualizar informações através de um dashboard
+* Identificar produtos com estoque baixo
+* Automatizar processos futuramente
 
 ---
 
-## 🚀 Tecnologias utilizadas
+## 🚀 Funcionalidades
 
-### Backend
+### 🔐 Autenticação
 
-* **Python 3.12**
-* **FastAPI**
-* **SQLAlchemy**
-* **PostgreSQL**
-* **psycopg2**
-* **Pydantic**
-* **JWT**
-* **Passlib**
-* **Uvicorn**
-* **python-dotenv**
+* Cadastro de usuário
+* Cadastro da empresa
+* Login
+* Autenticação utilizando JWT
+* Senhas armazenadas utilizando hash
+* Proteção das rotas privadas
+
+### 👥 Clientes
+
+* Cadastrar clientes
+* Listar clientes
+* Consultar clientes
+* Atualizar clientes
+* Excluir clientes
+* Armazenar telefone, e-mail, CPF, endereço e observações
+
+### 📦 Produtos
+
+* Cadastrar produtos
+* Listar produtos
+* Consultar produtos
+* Atualizar produtos
+* Excluir produtos
+* Controle de preço
+* Controle de estoque
+* Definição de estoque mínimo
+* Categorias
+* Identificação de produtos com estoque baixo
+
+### 🛒 Pedidos
+
+O módulo de pedidos está sendo desenvolvido para permitir:
+
+* Seleção de clientes
+* Seleção de produtos
+* Definição de quantidades
+* Cálculo automático do total
+* Controle de status
+* Atualização do estoque
+* Validação de estoque disponível
+
+Status planejados:
+
+* Pendente
+* Confirmado
+* Preparando
+* Enviado
+* Concluído
+* Cancelado
+
+### 📊 Dashboard
+
+O dashboard será responsável por apresentar informações como:
+
+* Vendas do dia
+* Vendas do mês
+* Total de pedidos
+* Pedidos pendentes
+* Pedidos concluídos
+* Total de clientes
+* Total de produtos
+* Produtos com estoque baixo
+
+---
+
+## 🧱 Arquitetura
+
+O projeto utiliza uma arquitetura dividida em três partes principais:
+
+```text
+┌──────────────────────────────┐
+│          FRONTEND            │
+│        HTML / CSS / JS       │
+└──────────────┬───────────────┘
+               │
+               │ HTTP / JSON
+               ▼
+┌──────────────────────────────┐
+│           BACKEND            │
+│       Python + FastAPI       │
+└──────────────┬───────────────┘
+               │
+               │ SQLAlchemy
+               ▼
+┌──────────────────────────────┐
+│         POSTGRESQL           │
+│          Banco de dados      │
+└──────────────────────────────┘
+```
+
+Futuramente, o projeto também poderá utilizar o **n8n** como camada de automação:
+
+```text
+Frontend
+    ↓
+FastAPI
+    ↓
+PostgreSQL
+    ↓
+Webhook
+    ↓
+n8n
+    ↓
+Automações
+```
+
+---
+
+## 🛠️ Tecnologias
 
 ### Frontend
-
-O frontend será desenvolvido utilizando:
 
 * HTML5
 * CSS3
 * JavaScript
 * Fetch API
+* LocalStorage
+
+### Backend
+
+* Python
+* FastAPI
+* Uvicorn
+* SQLAlchemy
+* Pydantic
+* JWT
+* Passlib
+* bcrypt
+
+### Banco de dados
+
+* PostgreSQL
+
+### Automação futura
+
+* n8n
 
 ---
 
-## 🏗️ Arquitetura
-
-O projeto está organizado separando o backend da aplicação:
+## 📁 Estrutura do projeto
 
 ```text
-VendeFacil/
+VdFcl/
 │
 ├── backend/
 │   │
@@ -71,363 +185,61 @@ VendeFacil/
 │   │       ├── __init__.py
 │   │       ├── auth.py
 │   │       ├── empresas.py
-│   │       ├── produtos.py
 │   │       ├── clientes.py
-│   │       ├── pedidos.py
-│   │       └── dashboard.py
+│   │       ├── produtos.py
+│   │       └── pedidos.py
 │   │
 │   ├── .env
 │   ├── requirements.txt
 │   └── README.md
 │
-└── frontend/
-    └── Em desenvolvimento
+└── front/
+    │
+    ├── index.html
+    ├── login.html
+    ├── cadastro.html
+    ├── dashboard.html
+    ├── clientes.html
+    ├── produtos.html
+    ├── pedidos.html
+    │
+    ├── css/
+    │   ├── style.css
+    │   ├── login.css
+    │   ├── cadastro.css
+    │   ├── dashboard.css
+    │   ├── clientes.css
+    │   ├── produtos.css
+    │   └── pedidos.css
+    │
+    └── js/
+        ├── api.js
+        ├── login.js
+        ├── cadastro.js
+        ├── dashboard.js
+        ├── clientes.js
+        ├── produtos.js
+        └── pedidos.js
 ```
 
 ---
 
-# 🔐 Autenticação
-
-O sistema utiliza **JWT (JSON Web Token)** para autenticar os usuários.
-
-O fluxo de autenticação funciona da seguinte forma:
-
-```text
-Cadastro
-   ↓
-Usuário + Empresa
-   ↓
-Login
-   ↓
-JWT
-   ↓
-Acesso às rotas protegidas
-```
-
-Cada token possui informações que permitem identificar:
-
-* Usuário
-* Empresa
-
-Isso permite que cada empresa tenha acesso somente aos seus próprios dados.
-
----
-
-# 🏢 Empresas
-
-Cada usuário cadastrado está associado a uma empresa.
-
-As informações da empresa incluem:
-
-* Nome
-* CNPJ
-* Telefone
-* E-mail
-
-Endpoint disponível:
-
-```http
-GET /empresas/minha-empresa
-```
-
----
-
-# 👥 Clientes
-
-O sistema possui CRUD completo para clientes.
-
-Cada cliente pode possuir:
-
-* Nome
-* Telefone
-* E-mail
-* CPF
-* Endereço
-* Observações
-* Status ativo/inativo
-
-### Endpoints
-
-```http
-POST   /clientes/
-GET    /clientes/
-GET    /clientes/{cliente_id}
-PUT    /clientes/{cliente_id}
-DELETE /clientes/{cliente_id}
-```
-
----
-
-# 📦 Produtos
-
-O gerenciamento de produtos permite controlar informações como:
-
-* Nome
-* Descrição
-* Preço
-* Estoque
-* Estoque mínimo
-* Categoria
-* Status
-
-### Endpoints
-
-```http
-POST   /produtos/
-GET    /produtos/
-GET    /produtos/{produto_id}
-PUT    /produtos/{produto_id}
-DELETE /produtos/{produto_id}
-```
-
-Também existe uma rota para identificar produtos que estão com estoque baixo:
-
-```http
-GET /produtos/alertas/estoque-baixo
-```
-
-Um produto é considerado com estoque baixo quando:
-
-```text
-estoque <= estoque_minimo
-```
-
----
-
-# 🛒 Pedidos
-
-O módulo de pedidos conecta clientes e produtos.
-
-Um pedido possui:
-
-* Cliente
-* Produtos
-* Quantidades
-* Preço unitário
-* Subtotal
-* Total
-* Status
-* Data de criação
-
-### Status disponíveis
-
-```text
-Pendente
-Confirmado
-Preparando
-Enviado
-Concluído
-Cancelado
-```
-
-### Endpoints
-
-```http
-POST   /pedidos/
-GET    /pedidos/
-GET    /pedidos/{pedido_id}
-PUT    /pedidos/{pedido_id}/status
-DELETE /pedidos/{pedido_id}
-```
-
----
-
-# 📊 Controle automático de estoque
-
-O sistema possui integração entre pedidos e estoque.
-
-Quando um pedido passa para:
-
-```text
-Confirmado
-```
-
-o sistema verifica se existe estoque suficiente.
-
-Caso exista:
-
-```text
-Estoque atual
-      ↓
-Quantidade do pedido
-      ↓
-Novo estoque
-```
-
-Por exemplo:
-
-```text
-Produto: Camiseta
-Estoque: 20
-
-Pedido: 3 unidades
-
-Novo estoque:
-20 - 3 = 17
-```
-
-O sistema também evita que o estoque seja descontado novamente caso o pedido seja atualizado posteriormente.
-
----
-
-# 🔄 Cancelamento de pedidos
-
-Caso um pedido confirmado seja cancelado, os produtos que haviam sido retirados do estoque são devolvidos.
-
-Exemplo:
-
-```text
-Estoque antes:
-20
-
-Pedido confirmado:
-- 3
-
-Estoque:
-17
-
-Pedido cancelado:
-+ 3
-
-Estoque novamente:
-20
-```
-
----
-
-# 📈 Dashboard
-
-O sistema possui uma API específica para fornecer informações para o dashboard.
-
-Endpoint:
-
-```http
-GET /dashboard/resumo
-```
-
-Atualmente fornece:
-
-### Vendas
-
-* Vendas do dia
-* Vendas do mês
-
-### Pedidos
-
-* Total de pedidos
-* Pedidos pendentes
-* Pedidos concluídos
-
-### Clientes
-
-* Total de clientes ativos
-
-### Produtos
-
-* Total de produtos ativos
-* Produtos com estoque baixo
-
-Exemplo de resposta:
-
-```json
-{
-  "vendas": {
-    "hoje": 0,
-    "mes": 0
-  },
-  "pedidos": {
-    "total": 0,
-    "pendentes": 0,
-    "concluidos": 0
-  },
-  "clientes": {
-    "total": 0
-  },
-  "produtos": {
-    "total": 0,
-    "estoque_baixo": 0
-  }
-}
-```
-
----
-
-# 🗄️ Banco de dados
-
-O projeto utiliza **PostgreSQL**.
-
-Principais tabelas:
-
-```text
-empresas
-   │
-   ├── usuarios
-   ├── produtos
-   ├── clientes
-   └── pedidos
-           │
-           └── itens_pedido
-```
-
-### Empresas
-
-Armazena os dados das empresas cadastradas.
-
-### Usuários
-
-Armazena os usuários responsáveis pelo acesso ao sistema.
-
-### Produtos
-
-Armazena produtos e informações de estoque.
-
-### Clientes
-
-Armazena os clientes das empresas.
-
-### Pedidos
-
-Armazena os pedidos realizados.
-
-### Itens do pedido
-
-Relaciona os produtos aos pedidos.
-
----
-
-# ⚙️ Configuração
-
-## 1. Clonar o projeto
-
-```bash
-git clone https://github.com/seu-usuario/vendefacil.git
-```
+## ⚙️ Configuração do Backend
 
 Entre na pasta:
 
 ```bash
-cd vendefacil/backend
+cd backend
 ```
 
----
-
-## 2. Criar ambiente virtual
-
-No Windows:
+Crie e ative o ambiente virtual:
 
 ```powershell
 python -m venv venv
-```
-
-Ative:
-
-```powershell
 venv\Scripts\activate
 ```
 
----
-
-## 3. Instalar dependências
+Instale as dependências:
 
 ```powershell
 pip install -r requirements.txt
@@ -435,15 +247,11 @@ pip install -r requirements.txt
 
 ---
 
-## 4. Configurar o PostgreSQL
+## 🔑 Variáveis de ambiente
 
-Crie um banco de dados chamado:
+Crie um arquivo `.env` dentro da pasta `backend`.
 
-```text
-vendefacil
-```
-
-Depois configure o arquivo `.env`:
+Exemplo:
 
 ```env
 DB_HOST=localhost
@@ -452,16 +260,28 @@ DB_USER=postgres
 DB_PASSWORD=SUA_SENHA
 DB_NAME=vendefacil
 
-SECRET_KEY=sua-chave-secreta
+SECRET_KEY=SUA_CHAVE_SECRETA
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 ```
 
-> ⚠️ O arquivo `.env` não deve ser enviado para o GitHub. Adicione `.env` ao `.gitignore`.
+O arquivo `.env` não deve ser enviado para o GitHub.
 
 ---
 
-# ▶️ Executando o projeto
+## 🗄️ Banco de dados
+
+Crie um banco PostgreSQL chamado:
+
+```text
+vendefacil
+```
+
+As tabelas são criadas pela aplicação através do SQLAlchemy.
+
+---
+
+## ▶️ Executando o Backend
 
 Com o ambiente virtual ativado:
 
@@ -475,161 +295,216 @@ A API ficará disponível em:
 http://127.0.0.1:8000
 ```
 
----
-
-# 📚 Documentação da API
-
-O FastAPI gera automaticamente a documentação utilizando Swagger.
-
-Acesse:
+Documentação interativa:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-Também existe a documentação alternativa:
+---
+
+## ▶️ Executando o Frontend
+
+Abra outro terminal.
+
+Entre na pasta:
+
+```powershell
+cd C:\vendaFacil\VdFcl\front
+```
+
+Execute:
+
+```powershell
+python -m http.server 5500
+```
+
+O frontend ficará disponível em:
 
 ```text
-http://127.0.0.1:8000/redoc
+http://127.0.0.1:5500
 ```
 
 ---
 
-# ❤️ Health Check
+## 🔄 Execução completa
 
-Para verificar se a API está funcionando:
+É necessário manter o backend e o frontend rodando simultaneamente.
+
+### Terminal 1
+
+```powershell
+cd C:\vendaFacil\VdFcl\backend
+venv\Scripts\activate
+uvicorn app.main:app --reload
+```
+
+### Terminal 2
+
+```powershell
+cd C:\vendaFacil\VdFcl\front
+python -m http.server 5500
+```
+
+Depois acesse:
+
+```text
+http://127.0.0.1:5500
+```
+
+---
+
+## 🔐 Fluxo de autenticação
+
+O sistema utiliza JWT para autenticação.
+
+```text
+Cadastro
+   ↓
+FastAPI
+   ↓
+Senha transformada em hash
+   ↓
+PostgreSQL
+```
+
+No login:
+
+```text
+E-mail + senha
+      ↓
+FastAPI
+      ↓
+Verificação da senha
+      ↓
+JWT
+      ↓
+Frontend
+      ↓
+LocalStorage
+```
+
+As requisições protegidas utilizam:
 
 ```http
-GET /health
-```
-
-Resposta:
-
-```json
-{
-  "status": "online"
-}
+Authorization: Bearer TOKEN
 ```
 
 ---
 
-# 🧪 Fluxo para testar a API
+## 🌐 CORS
 
-Uma sequência recomendada para testar o sistema:
+Durante o desenvolvimento, o backend permite comunicação com o frontend executado na porta `5500`.
 
 ```text
-1. Cadastro
-      ↓
-2. Login
-      ↓
-3. Copiar JWT
-      ↓
-4. Autorizar no Swagger
-      ↓
-5. Criar cliente
-      ↓
-6. Criar produto
-      ↓
-7. Criar pedido
-      ↓
-8. Confirmar pedido
-      ↓
-9. Verificar estoque
-      ↓
-10. Consultar dashboard
+Frontend
+127.0.0.1:5500
+
+        ↓
+
+Backend
+127.0.0.1:8000
 ```
 
 ---
 
-# 🔒 Segurança
+## 📌 Estado atual
 
-O projeto possui algumas medidas básicas de segurança:
+### Concluído
 
-* Autenticação utilizando JWT
-* Senhas armazenadas com hash
-* Rotas protegidas
-* Separação dos dados por empresa
-* Validação através do Pydantic
-* Verificação de estoque
-* Proteção contra acesso a dados de outra empresa
-
----
-
-# 🛣️ Roadmap
-
-## ✅ Backend
-
-* [x] Configuração do PostgreSQL
-* [x] Conexão com banco de dados
+* [x] Estrutura inicial do projeto
+* [x] PostgreSQL configurado
+* [x] Conexão com banco
+* [x] FastAPI configurado
+* [x] Autenticação
 * [x] Cadastro
 * [x] Login
 * [x] JWT
-* [x] Empresas
-* [x] Produtos
-* [x] Estoque
 * [x] Clientes
-* [x] Pedidos
-* [x] Controle automático de estoque
-* [x] Dashboard básico
+* [x] Produtos
+* [x] Controle de estoque mínimo
+* [x] Frontend integrado à API
+* [x] CORS configurado
+* [x] Página inicial
+* [x] Dashboard visual
+* [x] Página de pedidos
 
-## 🚧 Frontend
+### Em desenvolvimento
 
-* [ ] Página inicial
-* [ ] Cadastro
-* [ ] Login
-* [ ] Dashboard
-* [ ] Página de clientes
-* [ ] Página de produtos
-* [ ] Página de pedidos
-* [ ] Página de estoque
-* [ ] Integração com a API
-
-## 🔮 Futuro
-
-* [ ] Relatórios
-* [ ] Gráficos de vendas
-* [ ] Histórico de pedidos
-* [ ] Sistema de notificações
-* [ ] Automação de atendimento
-* [ ] Integração com WhatsApp
-* [ ] Integração com pagamentos
-* [ ] Controle financeiro
-* [ ] Multiusuário
-* [ ] Permissões de acesso
-* [ ] Deploy em produção
+* [ ] Backend completo de pedidos
+* [ ] Criação de pedidos
+* [ ] Itens dos pedidos
+* [ ] Atualização automática do estoque
+* [ ] Alteração de status dos pedidos
+* [ ] Dashboard conectado aos dados reais
+* [ ] Gráficos
+* [ ] Melhorias de responsividade
+* [ ] Sistema de automações com n8n
 
 ---
 
-# 🎯 Objetivo
+## 🤖 Automação com n8n
 
-O objetivo do VendeFácil é criar uma plataforma simples e acessível para ajudar pequenos negócios a:
+Uma das próximas etapas do projeto é utilizar o n8n para automatizar tarefas.
 
-* Organizar clientes
-* Controlar produtos
-* Controlar estoque
-* Gerenciar pedidos
-* Acompanhar vendas
-* Automatizar tarefas
-* Tomar decisões através de dados
+Exemplo:
+
+```text
+Novo pedido
+     ↓
+FastAPI
+     ↓
+Evento/Webhook
+     ↓
+n8n
+     ↓
+Automação
+```
+
+O n8n será utilizado como camada de automação, enquanto o FastAPI continuará responsável pelas regras principais do sistema.
 
 ---
 
-# 👨‍💻 Desenvolvimento
+## 🔮 Futuras funcionalidades
 
-Projeto desenvolvido como aplicação prática de desenvolvimento de sistemas, envolvendo:
+Algumas funcionalidades planejadas:
 
-* Desenvolvimento Backend
+* Dashboard avançado
+* Relatórios
+* Gráficos de vendas
+* Histórico de pedidos
+* Busca e filtros
+* Controle financeiro
+* Notificações
+* Integração com WhatsApp
+* Automações com n8n
+* Sistema de permissões
+* Multiusuário
+* Deploy em produção
+* Backup do banco
+* Melhorias de segurança
+
+---
+
+## 📚 Objetivo do projeto
+
+O VendeFácil também possui finalidade educacional e prática, permitindo aplicar conhecimentos de:
+
+* Desenvolvimento Web
 * APIs REST
+* Python
 * Banco de dados
 * Autenticação
-* Modelagem de dados
-* CRUD
-* Controle de estoque
-* Integração entre entidades
-* Desenvolvimento Frontend
+* JavaScript
+* Arquitetura de software
+* Automação
+* Segurança da informação
 
 ---
 
-## 📄 Licença
+## 👨‍💻 Desenvolvimento
 
-Este projeto está em desenvolvimento e pode receber novas funcionalidades e melhorias ao longo do tempo.
+Projeto desenvolvido como uma aplicação web de gestão para pequenos negócios.
+
+**VendeFácil — simplificando a gestão para vender melhor.**
+
