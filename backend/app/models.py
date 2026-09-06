@@ -10,22 +10,50 @@ from sqlalchemy import (
     String,
     Text
 )
+
 from sqlalchemy.orm import relationship
 
 from .database import Base
 
 
+# ==========================================
+# EMPRESA
+# ==========================================
+
 class Empresa(Base):
     __tablename__ = "empresas"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
-    nome = Column(String(150), nullable=False)
-    cnpj = Column(String(18), unique=True, nullable=True)
-    telefone = Column(String(20), nullable=True)
-    email = Column(String(150), nullable=True)
+    nome = Column(
+        String(150),
+        nullable=False
+    )
 
-    created_at = Column(DateTime, default=datetime.utcnow)
+    cnpj = Column(
+        String(18),
+        unique=True,
+        nullable=True
+    )
+
+    telefone = Column(
+        String(20),
+        nullable=True
+    )
+
+    email = Column(
+        String(150),
+        nullable=True
+    )
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow
+    )
 
     usuarios = relationship(
         "Usuario",
@@ -52,12 +80,23 @@ class Empresa(Base):
     )
 
 
+# ==========================================
+# USUÁRIO
+# ==========================================
+
 class Usuario(Base):
     __tablename__ = "usuarios"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
-    nome = Column(String(150), nullable=False)
+    nome = Column(
+        String(150),
+        nullable=False
+    )
 
     email = Column(
         String(150),
@@ -66,9 +105,15 @@ class Usuario(Base):
         index=True
     )
 
-    senha_hash = Column(String(255), nullable=False)
+    senha_hash = Column(
+        String(255),
+        nullable=False
+    )
 
-    ativo = Column(Boolean, default=True)
+    ativo = Column(
+        Boolean,
+        default=True
+    )
 
     empresa_id = Column(
         Integer,
@@ -76,7 +121,10 @@ class Usuario(Base):
         nullable=False
     )
 
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow
+    )
 
     empresa = relationship(
         "Empresa",
@@ -84,14 +132,28 @@ class Usuario(Base):
     )
 
 
+# ==========================================
+# PRODUTO
+# ==========================================
+
 class Produto(Base):
     __tablename__ = "produtos"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
-    nome = Column(String(150), nullable=False)
+    nome = Column(
+        String(150),
+        nullable=False
+    )
 
-    descricao = Column(Text, nullable=True)
+    descricao = Column(
+        Text,
+        nullable=True
+    )
 
     preco = Column(
         Float,
@@ -138,24 +200,53 @@ class Produto(Base):
     )
 
 
+# ==========================================
+# CLIENTE
+# ==========================================
+
 class Cliente(Base):
     __tablename__ = "clientes"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
-    nome = Column(String(150), nullable=False)
+    nome = Column(
+        String(150),
+        nullable=False
+    )
 
-    telefone = Column(String(20), nullable=True)
+    telefone = Column(
+        String(20),
+        nullable=True
+    )
 
-    email = Column(String(150), nullable=True)
+    email = Column(
+        String(150),
+        nullable=True
+    )
 
-    cpf = Column(String(14), nullable=True)
+    cpf = Column(
+        String(14),
+        nullable=True
+    )
 
-    endereco = Column(String(255), nullable=True)
+    endereco = Column(
+        String(255),
+        nullable=True
+    )
 
-    observacoes = Column(Text, nullable=True)
+    observacoes = Column(
+        Text,
+        nullable=True
+    )
 
-    ativo = Column(Boolean, default=True)
+    ativo = Column(
+        Boolean,
+        default=True
+    )
 
     empresa_id = Column(
         Integer,
@@ -173,6 +264,10 @@ class Cliente(Base):
         back_populates="clientes"
     )
 
+
+# ==========================================
+# PEDIDO
+# ==========================================
 
 class Pedido(Base):
     __tablename__ = "pedidos"
@@ -195,16 +290,16 @@ class Pedido(Base):
         nullable=False
     )
 
-    status = Column(
-        String(30),
-        nullable=False,
-        default="Pendente"
-    )
-
     total = Column(
         Float,
         nullable=False,
         default=0
+    )
+
+    status = Column(
+        String(30),
+        nullable=False,
+        default="Pendente"
     )
 
     estoque_baixado = Column(
@@ -239,6 +334,10 @@ class Pedido(Base):
         cascade="all, delete-orphan"
     )
 
+
+# ==========================================
+# ITENS DO PEDIDO
+# ==========================================
 
 class ItemPedido(Base):
     __tablename__ = "itens_pedido"

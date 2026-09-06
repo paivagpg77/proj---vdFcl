@@ -163,3 +163,43 @@ class PedidoResponse(BaseModel):
     itens: list[ItemPedidoResponse]
 
     model_config = ConfigDict(from_attributes=True)
+
+class ItemPedidoCreate(BaseModel):
+    produto_id: int
+    quantidade: int
+
+
+class PedidoCreate(BaseModel):
+    cliente_id: int
+    itens: list[ItemPedidoCreate]
+
+
+class PedidoStatusUpdate(BaseModel):
+    status: str
+
+
+class ItemPedidoResponse(BaseModel):
+    id: int
+    produto_id: int
+    quantidade: int
+    preco_unitario: float
+    subtotal: float
+
+    model_config = ConfigDict(
+        from_attributes=True
+    )
+
+
+class PedidoResponse(BaseModel):
+    id: int
+    cliente_id: int
+    empresa_id: int
+    total: float
+    status: str
+    estoque_baixado: bool
+    created_at: datetime
+    itens: list[ItemPedidoResponse]
+
+    model_config = ConfigDict(
+        from_attributes=True
+    )   

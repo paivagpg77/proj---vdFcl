@@ -3,15 +3,24 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .database import Base, engine
 from . import models
+
 from .routers import auth
 from .routers import empresas
 from .routers import produtos
 from .routers import clientes
+from .routers import pedidos
 
 
-# Cria as tabelas do banco de dados
+# ==========================================
+# CRIAÇÃO DAS TABELAS
+# ==========================================
+
 Base.metadata.create_all(bind=engine)
 
+
+# ==========================================
+# APLICAÇÃO
+# ==========================================
 
 app = FastAPI(
     title="VendeFácil API",
@@ -20,9 +29,9 @@ app = FastAPI(
 )
 
 
-# ==============================
+# ==========================================
 # CORS
-# ==============================
+# ==========================================
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,19 +45,24 @@ app.add_middleware(
 )
 
 
-# ==============================
-# ROTAS
-# ==============================
+# ==========================================
+# ROTAS DA API
+# ==========================================
 
 app.include_router(auth.router)
+
 app.include_router(empresas.router)
+
 app.include_router(produtos.router)
+
 app.include_router(clientes.router)
 
+app.include_router(pedidos.router)
 
-# ==============================
-# ROTAS DE TESTE
-# ==============================
+
+# ==========================================
+# ROTA PRINCIPAL
+# ==========================================
 
 @app.get("/")
 def root():
@@ -57,6 +71,10 @@ def root():
         "version": "1.0.0"
     }
 
+
+# ==========================================
+# HEALTH CHECK
+# ==========================================
 
 @app.get("/health")
 def health():

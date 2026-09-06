@@ -1,10 +1,26 @@
-from fastapi import APIRouter, Depends, HTTPException
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    status
+)
+
+from fastapi.security import (
+    HTTPAuthorizationCredentials,
+    HTTPBearer
+)
+
 from sqlalchemy.orm import Session
 
 from ..auth import decode_token
 from ..database import get_db
-from ..models import Cliente, ItemPedido, Pedido, Produto
+from ..models import (
+    Pedido,
+    ItemPedido,
+    Cliente,
+    Produto
+)
+
 from ..schemas import (
     PedidoCreate,
     PedidoResponse,
@@ -54,21 +70,20 @@ def obter_empresa_id(
     return int(empresa_id)
 
 
-# =========================
+# ==========================================
 # CRIAR PEDIDO
-# =========================
+# ==========================================
 
 @router.post(
     "/",
     response_model=PedidoResponse,
-    status_code=201
+    status_code=status.HTTP_201_CREATED
 )
 def criar_pedido(
     dados: PedidoCreate,
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
-
     empresa_id = obter_empresa_id(credentials)
 
     if not dados.itens:
@@ -76,6 +91,10 @@ def criar_pedido(
             status_code=400,
             detail="O pedido precisa ter pelo menos um produto."
         )
+
+    # --------------------------------------
+    # Verifica cliente
+    # --------------------------------------
 
     cliente = (
         db.query(Cliente)
@@ -93,18 +112,42 @@ def criar_pedido(
             detail="Cliente não encontrado."
         )
 
+    # --------------------------------------
+    # Evita produto duplicado
+    # --------------------------------------
+
+    produtos_ids = [
+        item.produto_id
+        for item in dados.itens
+    ]
+
+    if len(produtos_ids) != len(set(produtos_ids)):
+        raise HTTPException(
+            status_code=400,
+            detail="Não é permitido repetir o mesmo produto no pedido."
+        )
+
+    # --------------------------------------
+    # Cria pedido inicialmente
+    # --------------------------------------
+
     pedido = Pedido(
-        cliente_id=cliente.id,
+        cliente_id=dados.cliente_id,
         empresa_id=empresa_id,
-        status="Pendente",
         total=0,
+        status="Pendente",
         estoque_baixado=False
     )
 
     db.add(pedido)
+
     db.flush()
 
     total = 0
+
+    # --------------------------------------
+    # Adiciona produtos
+    # --------------------------------------
 
     for item in dados.itens:
 
@@ -130,7 +173,7 @@ def criar_pedido(
                 detail=f"Produto {item.produto_id} não encontrado."
             )
 
-        if item.quantidade > produto.estoque:
+        if produto.estoque < item.quantidade:
             raise HTTPException(
                 status_code=400,
                 detail=(
@@ -140,10 +183,13 @@ def criar_pedido(
                 )
             )
 
-        preco = produto.preco
+        preco = float(produto.preco)
+
         subtotal = preco * item.quantidade
 
-        novo_item = ItemPedido(
+        total += subtotal
+
+        item_pedido = ItemPedido(
             pedido_id=pedido.id,
             produto_id=produto.id,
             quantidade=item.quantidade,
@@ -151,21 +197,20 @@ def criar_pedido(
             subtotal=subtotal
         )
 
-        db.add(novo_item)
-
-        total += subtotal
+        db.add(item_pedido)
 
     pedido.total = total
 
     db.commit()
+
     db.refresh(pedido)
 
     return pedido
 
 
-# =========================
+# ==========================================
 # LISTAR PEDIDOS
-# =========================
+# ==========================================
 
 @router.get(
     "/",
@@ -175,7 +220,6 @@ def listar_pedidos(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
-
     empresa_id = obter_empresa_id(credentials)
 
     pedidos = (
@@ -192,9 +236,9 @@ def listar_pedidos(
     return pedidos
 
 
-# =========================
+# ==========================================
 # BUSCAR PEDIDO
-# =========================
+# ==========================================
 
 @router.get(
     "/{pedido_id}",
@@ -205,7 +249,6 @@ def buscar_pedido(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
-
     empresa_id = obter_empresa_id(credentials)
 
     pedido = (
@@ -226,30 +269,28 @@ def buscar_pedido(
     return pedido
 
 
-# =========================
+# ==========================================
 # ALTERAR STATUS
-# =========================
+# ==========================================
 
 @router.put(
     "/{pedido_id}/status",
     response_model=PedidoResponse
 )
-def atualizar_status(
+def alterar_status(
     pedido_id: int,
     dados: PedidoStatusUpdate,
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
-
     empresa_id = obter_empresa_id(credentials)
 
-    if dados.status not in STATUS_VALIDOS:
+    novo_status = dados.status
+
+    if novo_status not in STATUS_VALIDOS:
         raise HTTPException(
             status_code=400,
-            detail=(
-                "Status inválido. "
-                f"Use: {', '.join(STATUS_VALIDOS)}"
-            )
+            detail="Status inválido."
         )
 
     pedido = (
@@ -267,76 +308,34 @@ def atualizar_status(
             detail="Pedido não encontrado."
         )
 
-    # Não permite alterar pedido cancelado
-    if pedido.status == "Cancelado":
+    status_anterior = pedido.status
+
+    # --------------------------------------
+    # Não permite alterar pedido concluído
+    # --------------------------------------
+
+    if status_anterior == "Concluído":
         raise HTTPException(
             status_code=400,
-            detail="Um pedido cancelado não pode ser alterado."
+            detail="Um pedido concluído não pode ser alterado."
         )
 
-    # =========================
-    # CONFIRMAR PEDIDO
-    # =========================
+    # --------------------------------------
+    # Não faz nada se for o mesmo status
+    # --------------------------------------
 
-    if (
-        dados.status == "Confirmado"
-        and not pedido.estoque_baixado
-    ):
+    if status_anterior == novo_status:
+        return pedido
 
-        for item in pedido.itens:
-
-            produto = (
-                db.query(Produto)
-                .filter(
-                    Produto.id == item.produto_id,
-                    Produto.empresa_id == empresa_id
-                )
-                .first()
-            )
-
-            if not produto:
-                raise HTTPException(
-                    status_code=404,
-                    detail=(
-                        f"Produto {item.produto_id} "
-                        "não encontrado."
-                    )
-                )
-
-            if item.quantidade > produto.estoque:
-                raise HTTPException(
-                    status_code=400,
-                    detail=(
-                        f"Estoque insuficiente para "
-                        f"'{produto.nome}'. "
-                        f"Disponível: {produto.estoque}."
-                    )
-                )
-
-        # Só baixa o estoque depois de validar TODOS
-        for item in pedido.itens:
-
-            produto = (
-                db.query(Produto)
-                .filter(
-                    Produto.id == item.produto_id,
-                    Produto.empresa_id == empresa_id
-                )
-                .first()
-            )
-
-            produto.estoque -= item.quantidade
-
-        pedido.estoque_baixado = True
-
-    # =========================
+    # --------------------------------------
     # CANCELAMENTO
-    # =========================
+    # --------------------------------------
 
-    if dados.status == "Cancelado":
+    if novo_status == "Cancelado":
 
-        # Se o estoque já foi baixado,
-        # devolvemos os produtos
+        # Se estoque já foi baixado,
+        # devolve os produtos ao estoque.
+
         if pedido.estoque_baixado:
 
             for item in pedido.itens:
@@ -347,6 +346,7 @@ def atualizar_status(
                         Produto.id == item.produto_id,
                         Produto.empresa_id == empresa_id
                     )
+                    .with_for_update()
                     .first()
                 )
 
@@ -355,17 +355,91 @@ def atualizar_status(
 
             pedido.estoque_baixado = False
 
-    pedido.status = dados.status
+        pedido.status = "Cancelado"
+
+        db.commit()
+        db.refresh(pedido)
+
+        return pedido
+
+    # --------------------------------------
+    # PEDIDO CANCELADO
+    # --------------------------------------
+
+    if status_anterior == "Cancelado":
+        raise HTTPException(
+            status_code=400,
+            detail="Um pedido cancelado não pode voltar para outro status."
+        )
+
+    # --------------------------------------
+    # CONFIRMAR PEDIDO
+    # --------------------------------------
+
+    if novo_status == "Confirmado":
+
+        if not pedido.estoque_baixado:
+
+            produtos = []
+
+            for item in pedido.itens:
+
+                produto = (
+                    db.query(Produto)
+                    .filter(
+                        Produto.id == item.produto_id,
+                        Produto.empresa_id == empresa_id
+                    )
+                    .with_for_update()
+                    .first()
+                )
+
+                if not produto:
+                    raise HTTPException(
+                        status_code=404,
+                        detail=(
+                            f"Produto {item.produto_id} "
+                            "não encontrado."
+                        )
+                    )
+
+                if produto.estoque < item.quantidade:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=(
+                            f"Estoque insuficiente para "
+                            f"'{produto.nome}'. "
+                            f"Disponível: {produto.estoque}."
+                        )
+                    )
+
+                produtos.append(
+                    (produto, item.quantidade)
+                )
+
+            # Só baixa depois de validar TODOS
+
+            for produto, quantidade in produtos:
+                produto.estoque -= quantidade
+
+            pedido.estoque_baixado = True
+
+    # --------------------------------------
+    # ALTERA STATUS
+    # --------------------------------------
+
+    pedido.status = novo_status
 
     db.commit()
+
     db.refresh(pedido)
 
     return pedido
 
 
-# =========================
+# ==========================================
 # EXCLUIR PEDIDO
-# =========================
+# ==========================================
 
 @router.delete(
     "/{pedido_id}"
@@ -375,7 +449,6 @@ def excluir_pedido(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
-
     empresa_id = obter_empresa_id(credentials)
 
     pedido = (
@@ -393,23 +466,14 @@ def excluir_pedido(
             detail="Pedido não encontrado."
         )
 
-    # Se o estoque já foi baixado,
-    # devolvemos antes de excluir
     if pedido.estoque_baixado:
-
-        for item in pedido.itens:
-
-            produto = (
-                db.query(Produto)
-                .filter(
-                    Produto.id == item.produto_id,
-                    Produto.empresa_id == empresa_id
-                )
-                .first()
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Este pedido já baixou o estoque. "
+                "Cancele o pedido antes de removê-lo."
             )
-
-            if produto:
-                produto.estoque += item.quantidade
+        )
 
     db.delete(pedido)
 
