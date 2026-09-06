@@ -1,0 +1,8 @@
+backend
+cd C:\vendaFacil\VdFcl\backend
+venv\Scripts\activate
+uvicorn app.main:app --reload
+
+front
+cd C:\vendaFacil\VdFcl\front
+python -m http.server 5500

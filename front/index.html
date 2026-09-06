@@ -4,163 +4,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VendeFácil — Gestão simplificada</title>
+    <title>VendeFácil — Gestão simplificada para seu negócio</title>
     <link rel="stylesheet" href="css/style.css">
-
-    <style>
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Fundo com gradiente sutil */
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(31, 82, 51, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(243, 156, 18, 0.05) 0%, transparent 60%);
-        }
-
-        .hero-content {
-            max-width: 720px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(31, 82, 51, 0.08);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-size: 56px;
-            color: var(--primary);
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-            line-height: 1.1;
-        }
-
-        .hero h2 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-
-        .hero p {
-            color: var(--muted);
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 36px;
-            max-width: 560px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-        }
-
-        .hero-buttons .btn {
-            padding: 14px 28px;
-            font-size: 16px;
-        }
-
-        .hero-buttons .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(31, 82, 51, 0.25);
-        }
-
-        /* Detalhe visual ouro */
-        .hero-accent {
-            width: 60px;
-            height: 4px;
-            background: var(--secondary);
-            border-radius: 2px;
-            margin: 0 auto 24px;
-        }
-
-        @media (max-width: 600px) {
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .hero h2 {
-                font-size: 22px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .hero-buttons .btn {
-                width: 100%;
-                max-width: 280px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
 
-    <main class="hero">
+    <!-- ── NAVBAR ─────────────────────────────── -->
 
-        <div class="hero-content">
+    <nav class="nav" id="nav">
+        <div class="nav-logo">VendeFácil</div>
+        <div class="nav-links">
+            <a href="login.html" class="btn btn-secondary">Entrar</a>
+            <a href="cadastro.html" class="btn btn-primary">Criar conta</a>
+        </div>
+    </nav>
 
-            <span class="hero-badge">
-                ✦ Gestão simplificada
-            </span>
+    <!-- ── HERO ──────────────────────────────── -->
 
-            <h1>VendeFácil</h1>
+    <section class="hero">
+        <div class="hero-inner">
 
-            <div class="hero-accent"></div>
+            <span class="hero-badge">✦ Gestão simplificada</span>
 
-            <h2>
-                Gestão simples para o seu negócio.
-            </h2>
+            <h1>Tudo que seu negócio precisa em um só lugar.</h1>
+
+            <div class="hero-bar"></div>
 
             <p>
-                Gerencie clientes, produtos, estoque e pedidos
-                em um único lugar. Tudo que você precisa para
-                crescer com confiança.
+                Clientes, produtos, estoque e pedidos organizados
+                para você focar no que importa: vender mais e crescer.
             </p>
 
             <div class="hero-buttons">
-
                 <a href="login.html" class="btn btn-secondary">
-                    Entrar
+                    Já tenho conta
                 </a>
-
                 <a href="cadastro.html" class="btn btn-primary">
-                    Começar agora
+                    Começar grátis
                 </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── FUNCIONALIDADES ───────────────────── -->
+
+    <section class="features">
+        <div class="section-inner">
+
+            <div class="section-header center">
+                <span class="section-label">Funcionalidades</span>
+                <h2 class="section-title">Ferramentas feitas para o dia a dia</h2>
+                <p class="section-subtitle">
+                    Cada módulo resolve um problema real de quem
+                    vende e precisa manter tudo sob controle.
+                </p>
+            </div>
+
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon green">👥</div>
+                    <h3>Clientes</h3>
+                    <p>
+                        Cadastre, organize e acompanhe todos os
+                        seus clientes. Nome, telefone, e-mail, CPF
+                        e observações em um só lugar.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon gold">📦</div>
+                    <h3>Produtos e estoque</h3>
+                    <p>
+                        Controle preços, categorias e quantidades.
+                        Receba alertas automáticos quando o
+                        estoque ficar baixo.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon teal">🛒</div>
+                    <h3>Pedidos</h3>
+                    <p>
+                        Crie pedidos vinculados a clientes,
+                        acompanhe status do pendente ao
+                        concluído e veja o total em tempo real.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon green">📊</div>
+                    <h3>Dashboard</h3>
+                    <p>
+                        Vendas do dia, do mês, pedidos pendentes
+                        e concluídos — tudo resumido em cards
+                        para decisão rápida.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon gold">🏢</div>
+                    <h3>Multi-empresa</h3>
+                    <p>
+                        Cada conta é vinculada a uma empresa
+                        com CNPJ e telefone próprios. Dados
+                        separados e seguros.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon teal">🔒</div>
+                    <h3>Acesso seguro</h3>
+                    <p>
+                        Login com e-mail e senha, sessão protegida
+                        e dados isolados por empresa.
+                        Só você acessa o que é seu.
+                    </p>
+                </div>
 
             </div>
 
         </div>
+    </section>
 
-    </main>
+    <!-- ── COMO FUNCIONA ─────────────────────── -->
+
+    <section>
+        <div class="section-inner">
+
+            <div class="section-header center">
+                <span class="section-label">Como funciona</span>
+                <h2 class="section-title">Pronto em três passos</h2>
+                <p class="section-subtitle">
+                    Sem instalação, sem complicação. Crie sua conta
+                    e comece a organizar seu negócio agora.
+                </p>
+            </div>
+
+            <div class="steps-grid">
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Crie sua conta</h3>
+                    <p>
+                        Preencha seus dados e os da empresa.
+                        Leva menos de um minuto.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Cadastre tudo</h3>
+                    <p>
+                        Adicione seus clientes, produtos e
+                        defina o estoque mínimo de cada item.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Venda e acompanhe</h3>
+                    <p>
+                        Registre pedidos e veja os números
+                        do seu negócio no dashboard.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── DESTAQUES ─────────────────────────── -->
+
+    <section class="highlights">
+        <div class="section-inner">
+
+            <div class="section-header center">
+                <span class="section-label">Visão geral</span>
+                <h2 class="section-title">Números que importam</h2>
+                <p class="section-subtitle">
+                    Acompanhe tudo direto do seu painel.
+                </p>
+            </div>
+
+            <div class="highlights-grid">
+
+                <div class="highlight-item">
+                    <div class="highlight-value">R$</div>
+                    <div class="highlight-label">Vendas do dia e do mês</div>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-value">⚡</div>
+                    <div class="highlight-label">Alertas de estoque baixo</div>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-value">📋</div>
+                    <div class="highlight-label">Pedidos por status</div>
+                </div>
+
+                <div class="highlight-item">
+                    <div class="highlight-value">👥</div>
+                    <div class="highlight-label">Base de clientes ativa</div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── CTA FINAL ─────────────────────────── -->
+
+    <section class="cta">
+        <div class="section-inner">
+
+            <div class="cta-box">
+
+                <h2>Comece a vender melhor hoje.</h2>
+
+                <p>
+                    Crie sua conta grátis, cadastre seus
+                    produtos e clientes e tenha controle
+                    total do seu negócio.
+                </p>
+
+                <div class="cta-buttons">
+                    <a href="login.html" class="btn btn-secondary">
+                        Entrar na minha conta
+                    </a>
+                    <a href="cadastro.html" class="btn btn-primary">
+                        Criar minha conta grátis
+                    </a>
+                </div>
+
+                <p class="cta-note">
+                    Sem cartão de crédito. Sem pegadinha.
+                </p>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── FOOTER ────────────────────────────── -->
+
+    <footer class="footer">
+        <span>VendeFácil</span> — Gestão simplificada para seu negócio
+    </footer>
+
+    <!-- ── SCRIPT ────────────────────────────── -->
+
+    <script>
+        // Sombra na navbar ao rolar
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 10);
+        });
+    </script>
 
 </body>
 
