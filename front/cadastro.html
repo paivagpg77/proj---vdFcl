@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cadastro — VendeFácil</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+
+</head>
+
+<body>
+
+    <main class="cadastro-page">
+
+        <div class="cadastro-container">
+
+            <div class="cadastro-header">
+
+                <h1>VendeFácil</h1>
+
+                <p>
+                    Crie sua conta e sua empresa
+                </p>
+
+            </div>
+
+            <div class="cadastro-card">
+
+                <div
+                    id="cadastroMessage"
+                    class="message hidden"
+                ></div>
+
+                <form id="cadastroForm">
+
+                    <h3 class="section-title">
+                        Seus dados
+                    </h3>
+
+                    <div class="form-group">
+
+                        <label for="nome">
+                            Nome
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nome"
+                            placeholder="Seu nome"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="seu@email.com"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="senha">
+                            Senha
+                        </label>
+
+                        <input
+                            type="password"
+                            id="senha"
+                            placeholder="Crie uma senha"
+                            required
+                        >
+
+                    </div>
+
+
+                    <h3 class="section-title">
+                        Dados da empresa
+                    </h3>
+
+                    <div class="form-group">
+
+                        <label for="empresa_nome">
+                            Nome da empresa
+                        </label>
+
+                        <input
+                            type="text"
+                            id="empresa_nome"
+                            placeholder="Nome da empresa"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="empresa_cnpj">
+                            CNPJ
+                        </label>
+
+                        <input
+                            type="text"
+                            id="empresa_cnpj"
+                            placeholder="00.000.000/0000-00"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="empresa_telefone">
+                            Telefone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="empresa_telefone"
+                            placeholder="(85) 99999-9999"
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Criar minha conta
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="cadastro-footer">
+
+                Já possui uma conta?
+
+                <a href="login.html">
+                    Entrar
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/cadastro.js"></script>
+
+</body>
+
+</html>

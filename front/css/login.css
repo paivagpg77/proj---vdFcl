@@ -1,0 +1,89 @@
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--background);
+}
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-logo h1 {
+    color: var(--primary);
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.login-logo p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.login-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.login-card h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.login-card .subtitle {
+    color: var(--muted);
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.login-card button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.login-footer a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.login-footer a:hover {
+    color: var(--primary-dark);
+}
+
+@media (max-width: 500px) {
+
+    .login-page {
+        padding: 15px;
+    }
+
+    .login-card {
+        padding: 22px;
+    }
+
+    .login-logo h1 {
+        font-size: 28px;
+    }
+
+    .login-card h2 {
+        font-size: 21px;
+    }
+}

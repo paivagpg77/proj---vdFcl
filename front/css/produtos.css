@@ -1,0 +1,46 @@
+.produtos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.produtos-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.estoque-baixo {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+.estoque-normal {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.produto-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 550px;
+    padding: 25px;
+    border-radius: 14px;
+}

@@ -1,0 +1,74 @@
+.pedidos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.pedidos-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pendente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-confirmado {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-preparando {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.status-enviado {
+    background: #cffafe;
+    color: #155e75;
+}
+
+.status-concluido {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-cancelado {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.pedido-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.pedido-itens {
+    margin-top: 20px;
+}
+
+.item-pedido {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.total-pedido {
+    text-align: right;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 15px;
+}

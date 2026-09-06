@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VendeFácil — Gestão simplificada</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero h2 {
+                font-size: 25px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="hero">
+
+        <div class="hero-content">
+
+            <h1>VendeFácil</h1>
+
+            <h2>
+                Gestão simples para o seu negócio.
+            </h2>
+
+            <p>
+                Gerencie clientes, produtos, estoque e pedidos
+                em um único lugar.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="login.html"
+                    class="btn btn-secondary"
+                >
+                    Entrar
+                </a>
+
+                <a
+                    href="cadastro.html"
+                    class="btn btn-primary"
+                >
+                    Começar agora
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
